@@ -56,6 +56,8 @@ class WaypointUpdater(object):
     def get_closest_waypoint_idx(self):
         x = self.pose.pose.position.x
         y = self.pose.pose.position.y
+        if (self.waypoint_tree == None):
+            return 0
         closest_idx = self.waypoint_tree.query([x,y], 1)[1]
         closest_coord = self.waypoints_2d[closest_idx]
         prev_coord = self.waypoints_2d[closest_idx - 1]

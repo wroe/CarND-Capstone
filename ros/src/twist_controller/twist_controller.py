@@ -1,10 +1,15 @@
+from yaw_controller import *
+from pid import *
+from lowpass import *
+import rospy
+
 
 GAS_DENSITY = 2.858
 ONE_MPH = 0.44704
 
 
 class Controller(object):
-    def __init__(self, vehicle_mass, brake_deadband, decel_limit,
+    def __init__(self, vehicle_mass, fuel_capacity, brake_deadband, decel_limit,
                 accel_limit, wheel_radius, wheel_base, steer_ratio, max_lat_accel, max_steer_angle):
         # TODO: Implement
         self.yaw_controller = YawController(wheel_base, steer_ratio, 0.1, max_lat_accel, max_steer_angle)
@@ -49,7 +54,7 @@ class Controller(object):
         throttle = self.throttle_controller.step(vel_error, sample_time)
         brake = 0.
 
-        if linear_vel == 0. and current_vel = 0.1:
+        if linear_vel == 0. and current_vel == 0.1:
             throttle = 0
             brake = 400 # nm to hold in place
         elif throttle < .1 and vel_error < 0:

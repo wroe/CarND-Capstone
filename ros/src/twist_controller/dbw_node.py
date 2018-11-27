@@ -91,9 +91,9 @@ class DBWNode(object):
                                                                  self.angular_vel)
 
 
-        if self.dbw_enabled:
-            self.publish(self.throttle, self.brake, self.steering)
-            rate.sleep()
+            if self.dbw_enabled:
+                self.publish(self.throttle, self.brake, self.steering)
+                rate.sleep()
 
     def dbw_enabled_cb(self, msg):
         self.dbw_enabled = msg

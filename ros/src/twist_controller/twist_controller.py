@@ -54,13 +54,15 @@ class Controller(object):
         throttle = self.throttle_controller.step(vel_error, sample_time)
         brake = 0.
 
-        if linear_vel == 0. and current_vel == 0.1:
+        if linear_vel < 0.1 and current_vel < 2:
             throttle = 0
-            brake = 400 # nm to hold in place
+            brake = 700 # nm to hold in place
+            rospy.logwarn('stopping')
         elif throttle < .1 and vel_error < 0:
             throttle = 0
             decel =  max(vel_error, self.decel_limit)
             brake  = abs(decel) * self.vehicle_mass * self.wheel_radius # torque nm
+            rospy.logwarn('going slow: ' + str(linear_vel) + ' ' + str(current_vel))
 
         return throttle, brake, steering
 

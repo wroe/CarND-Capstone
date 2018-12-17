@@ -91,12 +91,11 @@ class TLDetector(object):
             of times till we start using it. Otherwise the previous stable state is
             used.
             '''
-            self.state_count = 1000
-	        #if self.state != state:
-                #    self.state_count = 0
-                #    self.state = state
-                #el
-            if self.state_count >= STATE_COUNT_THRESHOLD:
+
+	    if self.state != state:
+                self.state_count = 0
+                self.state = state
+            elif self.state_count >= STATE_COUNT_THRESHOLD:
                 self.last_state = self.state
                 light_wp = light_wp if state == TrafficLight.RED else -1
                 self.last_wp = light_wp

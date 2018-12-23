@@ -3,6 +3,7 @@ import rospy
 from keras.models import load_model
 import numpy as np
 from keras import backend as kbe
+import yaml
 
 IMG_H = 600   # image height in pixels
 IMG_W = 800  # image width in pixels
@@ -11,7 +12,11 @@ IMG_C = 3     # num of channels
 class TLClassifier(object):
     def __init__(self):
         #TODO load classifier
-        self.model_dir_path =  '/home/workspace/CarND-Capstone/ros/src/tl_detector/light_classification/models/sim_model.h5'
+        self.configuration = yaml.load(rospy.get_param('/traffic_light_config')))
+        if self.configuration['is_site']:
+            self.model_dir_path =  '/home/workspace/CarND-Capstone/ros/src/tl_detector/light_classification/models/site_model.h5'
+        else
+             self.model_dir_path =  '/home/workspace/CarND-Capstone/ros/src/tl_detector/light_classification/models/sim_model.h5'
         self.model = load_model(self.model_dir_path)
         self.model._make_predict_function()
         self.graph = kbe.tf.get_default_graph()

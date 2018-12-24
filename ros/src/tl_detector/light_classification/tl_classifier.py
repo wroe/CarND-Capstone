@@ -27,9 +27,10 @@ class TLClassifier(object):
 
         """
         #TODO implement light color prediction
-        colors = [TrafficLight.RED, TrafficLight.GREEN, TrafficLight.YELLOW, TrafficLight.UNKNOWN]
+        colors = [TrafficLight.GREEN, TrafficLight.RED, TrafficLight.YELLOW, TrafficLight.UNKNOWN]
         img = np.reshape (image,  (1, IMG_H, IMG_W, IMG_C))
         with self.graph.as_default():
             colorNum = np.argmax(self.model.predict(img))
+            #print(str(colorNum))
         
         return colors[colorNum] # -1 is UNKNOWN

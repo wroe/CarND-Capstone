@@ -61,6 +61,7 @@ class WaypointLoader(object):
         return math.sqrt(x*x + y*y + z*z)
 
     def decelerate(self, waypoints):
+        #rospy.logwarn('calling waypoint loader decelerate()')
         last = waypoints[-1]
         last.twist.twist.linear.x = 0.
         for wp in waypoints[:-1][::-1]:

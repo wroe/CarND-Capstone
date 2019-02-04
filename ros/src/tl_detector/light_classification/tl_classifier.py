@@ -13,14 +13,11 @@ IMG_C = 3     # num of channels
 class TLClassifier(object):
     def __init__(self):
         #TODO load classifier
-        self.configuration = yaml.load(rospy.get_param('/traffic_light_config'))
-        #rospy.logwarn(os.getcwd())
+        rospy.logwarn(os.getcwd())
         dir_path = os.path.dirname(os.path.realpath(__file__))
-        if self.configuration['is_site']:
-            self.model_dir_path =  os.path.join(dir_path, 'site_model.h5')
-        else:
-             self.model_dir_path =  os.path.join(dir_path, 'sim_model.h5')
-             #rospy.logwarn(os.path.join(dir_path, 'sim_model.h5'))
+        self.model_dir_path = os.path.join(dir_path, 'site_model.h5')
+        rospy.logwarn(os.path.join(dir_path, 'site_model.h5'))
+        
         self.model = load_model(self.model_dir_path)
         self.model._make_predict_function()
         self.graph = kbe.tf.get_default_graph()
